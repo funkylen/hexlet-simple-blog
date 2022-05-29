@@ -17,7 +17,7 @@ class SimpleAuth
     public function handle(Request $request, Closure $next)
     {
         if (session('auth') !== true) {
-            return abort(401);
+            return redirect()->route('auth_page');
         }
 
         return $next($request);
