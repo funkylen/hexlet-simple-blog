@@ -18,8 +18,8 @@ class AuthTest extends TestCase
     public function testAuth(): void
     {
         $body = [
-            'login' => 'admin',
-            'password' => 'password',
+            'login' => config('auth.simple_auth.login'),
+            'password' => config('auth.simple_auth.password'),
         ];
 
         $response = $this->post(route('auth'), $body);
@@ -27,5 +27,16 @@ class AuthTest extends TestCase
         $response->assertRedirect();
 
         $response->assertSessionHas('auth');
+    }
+
+    public function testAuthPageWhenAuthorized(): void
+    {
+        $this->session([
+            'auth' => true,
+        ]);
+
+        $response = $this->get(route('auth_page'));
+
+        $response->assertRedirect();
     }
 }

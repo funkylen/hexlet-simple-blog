@@ -8,8 +8,12 @@ use Illuminate\View\View;
 
 class AuthController extends Controller
 {
-    public function index(): View
+    public function index(): View|RedirectResponse
     {
+        if (session('auth') === true) {
+            return redirect(route('home'));
+        }
+
         return view('auth');
     }
 
@@ -20,8 +24,8 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        $login = 'admin';
-        $password = 'password';
+        $login = config('auth.simple_auth.login');
+        $password = config('auth.simple_auth.password');
 
         if ($validated['login'] !== $login || $validated['password'] !== $password) {
             abort(401);

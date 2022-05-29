@@ -108,4 +108,9 @@ return [
 
     'password_timeout' => 10800,
 
+    'simple_auth' => [
+        'login' => 'admin',
+        'password' => 'password',
+    ],
+
 ];
