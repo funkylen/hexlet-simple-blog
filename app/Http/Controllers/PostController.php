@@ -47,6 +47,7 @@ class PostController extends Controller
 
         return view('post.edit', compact('post'));
     }
+
     public function update($id, PostUpdateRequest $request)
     {
         $post = DB::table('posts')->find($id);
@@ -60,4 +61,16 @@ class PostController extends Controller
         return redirect()->route('show_post_page', $id);
     }
 
+    public function delete($id)
+    {
+        $post = DB::table('posts')->find($id);
+
+        if (!$post) {
+            abort(404);
+        }
+
+        DB::table('posts')->where('id', $post->id)->delete();
+
+        return redirect()->route('posts_page');
+    }
 }

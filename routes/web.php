@@ -32,3 +32,7 @@ Route::get('/posts/{id}/edit', [PostController::class, 'edit'])
 Route::post('/posts/{id}', [PostController::class, 'update'])
     ->name('update_post')
     ->middleware(SimpleAuth::class);
+
+Route::delete('/posts/{id}', [PostController::class, 'delete'])
+    ->name('delete_post')
+    ->middleware(SimpleAuth::class);
