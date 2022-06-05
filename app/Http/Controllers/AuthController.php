@@ -8,10 +8,10 @@ use Illuminate\View\View;
 
 class AuthController extends Controller
 {
-    public function index(): View|RedirectResponse
+    public function index(Request $request): View|RedirectResponse
     {
         if (session('auth') === true) {
-            return redirect(route('home'));
+            return redirect($request->to ?? route('home'));
         }
 
         return view('auth');
@@ -33,6 +33,6 @@ class AuthController extends Controller
 
         $request->session()->put('auth', true);
 
-        return redirect()->route('home');
+        return back();
     }
 }
