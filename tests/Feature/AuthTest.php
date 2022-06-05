@@ -37,4 +37,15 @@ class AuthTest extends TestCase
 
         $response->assertRedirect();
     }
+
+    public function testLogout(): void
+    {
+        $this->authorized();
+
+        $response = $this->post(route('logout'));
+
+        $response->assertRedirect();
+
+        $response->assertSessionMissing('auth');
+    }
 }

@@ -6,6 +6,7 @@
 
 @section('content')
     <form method="post" action="{{ route('posts.update', $post->id) }}">
+        @method('PUT')
         @csrf
 
         <div class="mb-3">

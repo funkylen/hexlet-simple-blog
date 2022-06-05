@@ -32,16 +32,28 @@
                         Posts
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a
-                        class="nav-link @if(request()->routeIs('create_post_page')) active @endif"
-                        aria-current="page"
-                        href="{{ route('posts.create') }}"
-                    >
-                        Create Post
-                    </a>
-                </li>
+                @if(session('auth'))
+                    <li class="nav-item">
+                        <a
+                            class="nav-link @if(request()->routeIs('create_post_page')) active @endif"
+                            aria-current="page"
+                            href="{{ route('posts.create') }}"
+                        >
+                            Create Post
+                        </a>
+                    </li>
+                @endif
             </ul>
+
+            @if(session('auth'))
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Logout</button>
+                </form>
+            @else
+                <a href="{{ route('auth_page') }}" class="btn btn-success">Login</a>
+            @endif
+
         </div>
     </div>
 </nav>

@@ -10,5 +10,8 @@ Route::redirect('/', '/posts')->name('home');
 Route::get('/auth', [AuthController::class, 'index'])->name('auth_page');
 
 Route::post('/auth', [AuthController::class, 'auth'])->name('auth');
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->name('logout')
+    ->middleware(SimpleAuth::class);
 
 Route::resource('posts', PostController::class);
