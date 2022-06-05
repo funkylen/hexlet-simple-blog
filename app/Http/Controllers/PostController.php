@@ -19,12 +19,12 @@ class PostController extends Controller
     {
         $posts = DB::table('posts')->orderBy('id')->paginate();
 
-        return view('home', compact('posts'));
+        return view('posts.index', compact('posts'));
     }
 
     public function create()
     {
-        return view('post.create');
+        return view('posts.create');
     }
 
     public function store(PostStoreRequest $request): RedirectResponse
@@ -45,7 +45,7 @@ class PostController extends Controller
             abort(404);
         }
 
-        return view('post.show', compact('post'));
+        return view('posts.show', compact('post'));
     }
 
     public function edit($id)
@@ -56,7 +56,7 @@ class PostController extends Controller
             abort(404);
         }
 
-        return view('post.edit', compact('post'));
+        return view('posts.edit', compact('post'));
     }
 
     public function update($id, PostUpdateRequest $request)
