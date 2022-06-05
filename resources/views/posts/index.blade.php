@@ -24,5 +24,6 @@
         </div>
     @endforeach
 
+    {{ $posts->links('pagination::simple-bootstrap-5') }}
 
 @endsection
