@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostStoreRequest;
+use App\Http\Requests\PostUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 
@@ -10,7 +11,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = DB::table('posts')->paginate();
+        $posts = DB::table('posts')->orderBy('id')->paginate();
 
         return view('home', compact('posts'));
     }
@@ -35,4 +36,28 @@ class PostController extends Controller
 
         return view('post.show', compact('post'));
     }
+
+    public function edit($id)
+    {
+        $post = DB::table('posts')->find($id);
+
+        if (!$post) {
+            abort(404);
+        }
+
+        return view('post.edit', compact('post'));
+    }
+    public function update($id, PostUpdateRequest $request)
+    {
+        $post = DB::table('posts')->find($id);
+
+        if (!$post) {
+            abort(404);
+        }
+
+        DB::table('posts')->where('id', $post->id)->update($request->validated());
+
+        return redirect()->route('show_post_page', $id);
+    }
+
 }
