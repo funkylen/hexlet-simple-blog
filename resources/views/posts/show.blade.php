@@ -5,7 +5,7 @@
 @section('content')
     <h1>{{ $post->title }}</h1>
     <p>
-        {{ $post->content}}
+        {!! $post->content !!}
     </p>
     <form class="d-inline" method="POST" action="{{ route('posts.destroy', $post->id) }}">
         @method('DELETE')

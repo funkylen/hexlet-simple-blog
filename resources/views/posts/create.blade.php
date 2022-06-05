@@ -2,6 +2,8 @@
 
 @section('title', 'Create Post')
 
+@include('components.wysiwyg', ['id' => 'content'])
+
 @section('content')
     <form method="post" action="{{ route('posts.store') }}">
         @csrf

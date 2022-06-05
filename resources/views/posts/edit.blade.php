@@ -2,6 +2,8 @@
 
 @section('title', 'Edit Post')
 
+@include('components.wysiwyg', ['id' => 'content'])
+
 @section('content')
     <form method="post" action="{{ route('posts.update', $post->id) }}">
         @csrf

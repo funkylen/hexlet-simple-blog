@@ -10,7 +10,7 @@
                 {{ $post->title }}
             </div>
             <div class="card-body">
-                <p class="card-text">{{ Str::limit($post->content, 100, '...') }}</p>
+                <p class="card-text">{{  Str::limit(preg_replace('/(<([^>]+)>)/', PHP_EOL, $post->content), 100, '...')  }}</p>
                 <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary">Open post</a>
                 <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-success">Edit post</a>
                 <form class="d-inline" method="POST" action="{{ route('posts.destroy', $post->id) }}">
