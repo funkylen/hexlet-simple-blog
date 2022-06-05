@@ -35,7 +35,7 @@
                     <a
                         class="nav-link @if(request()->routeIs('create_post_page')) active @endif"
                         aria-current="page"
-                        href="{{ route('create_post_page') }}"
+                        href="{{ route('posts.create') }}"
                     >
                         Create Post
                     </a>

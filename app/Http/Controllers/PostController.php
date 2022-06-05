@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\SimpleAuth;
 use App\Http\Requests\PostStoreRequest;
 use App\Http\Requests\PostUpdateRequest;
 use Illuminate\Http\RedirectResponse;
@@ -9,11 +10,21 @@ use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(SimpleAuth::class)->except('index', 'show');
+    }
+
     public function index()
     {
         $posts = DB::table('posts')->orderBy('id')->paginate();
 
         return view('home', compact('posts'));
+    }
+
+    public function create()
+    {
+        return view('post.create');
     }
 
     public function store(PostStoreRequest $request): RedirectResponse
@@ -23,7 +34,7 @@ class PostController extends Controller
             'content' => $request->get('content'),
         ]);
 
-        return redirect()->route('show_post_page', $id);
+        return redirect()->route('posts.show', $id);
     }
 
     public function show($id)
@@ -58,10 +69,10 @@ class PostController extends Controller
 
         DB::table('posts')->where('id', $post->id)->update($request->validated());
 
-        return redirect()->route('show_post_page', $id);
+        return redirect()->route('posts.show', $id);
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $post = DB::table('posts')->find($id);
 
@@ -71,6 +82,6 @@ class PostController extends Controller
 
         DB::table('posts')->where('id', $post->id)->delete();
 
-        return redirect()->route('posts_page');
+        return redirect()->route('posts.index');
     }
 }
